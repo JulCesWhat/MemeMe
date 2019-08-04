@@ -39,6 +39,8 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
                                               attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
         self.shareButton.isEnabled = false
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        
 //        self.cancelButton.isEnabled = false
         self.setupTextFieldStyle(toTextField: self.topField)
         self.setupTextFieldStyle(toTextField: self.bottomField)
@@ -50,8 +52,6 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
-        
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

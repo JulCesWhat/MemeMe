@@ -13,3 +13,7 @@ Clone repo by `git clone https://github.com/JulCesWhat/MemeMe.git` and open it w
 ## Build
 
 Press the play button in the left top corner.
+
+## Meme 1.0
+
+https://github.com/JulCesWhat/MemeMe/commit/cf1575b37615f66e2c161214cde8245cdf5d559b
