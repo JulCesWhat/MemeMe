@@ -7,7 +7,14 @@
 //
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+struct Meme {
+    var topText: String
+    var bottomText: String
+    var originalImage: UIImage?
+    var memedImage: UIImage?
+}
+
+class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
 
@@ -19,13 +26,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
-    
-    struct Meme {
-        var topText: String
-        var bottomText: String
-        var originalImage: UIImage?
-        var memedImage: UIImage?
-    }
     
     let memeMeTextFieldDelegate = MemeMeTextFieldDelegate()
     
@@ -39,7 +39,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                               attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
         self.shareButton.isEnabled = false
-        self.cancelButton.isEnabled = false
+//        self.cancelButton.isEnabled = false
+        self.setupTextFieldStyle(toTextField: self.topField)
+        self.setupTextFieldStyle(toTextField: self.bottomField)
         
         self.view.addSubview(imagePickerView)
         self.view.sendSubviewToBack(imagePickerView)
@@ -50,7 +52,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         subscribeToKeyboardNotifications()
         
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeToKeyboardNotifications()
+    }
+    
+    func setupTextFieldStyle(toTextField textField: UITextField) {
         let memeTextAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.strokeColor: UIColor.black,
             NSAttributedString.Key.foregroundColor: UIColor.white,
@@ -58,17 +67,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             NSAttributedString.Key.strokeWidth: -2.0
         ]
         
-//        topField.text = "TOP"
-        topField.defaultTextAttributes = memeTextAttributes
-        topField.textAlignment = .center
-//        bottomField.text = "BOTTOM"
-        bottomField.defaultTextAttributes = memeTextAttributes
-        bottomField.textAlignment = .center
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        unsubscribeToKeyboardNotifications()
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
     }
 
     @IBAction func pickAnImageFromAlbun(_ sender: Any) {
@@ -103,27 +103,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func shareMeme(_ sender: Any) {
         let meme = generateMemedImage()
+//        self.save(meme: meme)
+//        self.save(meme: meme)
+//        self.save(meme: meme)
+//        self.save(meme: meme)
+//        self.save(meme: meme)
         
         let controller = UIActivityViewController(activityItems: [meme], applicationActivities: nil)
-        
+
         controller.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            if !completed {
-                // User canceled
-                return
+            if (completed) {
+                self.save(meme: meme)
             }
-            
-            let memeObj = self.save(memedImage: meme)
+
+            self.dismiss(animated: true, completion: nil)
         }
-        
+
         self.present(controller, animated: true, completion: nil)
     }
     
     @IBAction func cancelMeme(_ sender: Any) {
-        self.shareButton.isEnabled = false
-        self.cancelButton.isEnabled = false
-        self.topField.text = ""
-        self.bottomField.text = ""
-        self.imagePickerView.image = nil
+//        self.shareButton.isEnabled = false
+//        self.cancelButton.isEnabled = false
+//        self.topField.text = ""
+//        self.bottomField.text = ""
+//        self.imagePickerView.image = nil
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -171,17 +177,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         )
     }
     
-    func save(memedImage: UIImage) -> Meme {
+    func save(meme: UIImage) -> Void {
         // Create the meme
-        return Meme(topText: topField.text!, bottomText: bottomField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+        let newMeme = Meme(topText: topField.text!, bottomText: bottomField.text!, originalImage: imagePickerView.image!, memedImage: meme)
+        
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(newMeme)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func generateMemedImage() -> UIImage {
         
         // TODO: Hide toolbar and navbar
-        self.navigationController?.navigationBar.isHidden = true;
-        self.topToolBar.isHidden = true;
-        self.toolBar.isHidden = true
+        setButtons(show: true)
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -190,11 +199,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // TODO: Show toolbar and navbar
-        self.navigationController?.navigationBar.isHidden = false;
-        self.topToolBar.isHidden = false;
-        self.toolBar.isHidden = false
+        self.setButtons(show: false)
         
         return memedImage
+    }
+    
+    func setButtons(show: Bool) {
+        self.navigationController?.navigationBar.isHidden = show
+        self.topToolBar.isHidden = show
+        self.toolBar.isHidden = show
     }
 }
 
