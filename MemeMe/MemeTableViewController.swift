@@ -23,13 +23,13 @@ class MemeTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//      collectionView.reloadData()
+        super.viewWillAppear(animated)
         tableView!.reloadData()
     }
     
     @objc func openMemeCreator() {
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "MemeCreatorViewController") as! MemeCreatorViewController
-        self.present(detailController, animated: true, completion: nil)
+        present(detailController, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,10 +50,9 @@ class MemeTableViewController: UITableViewController {
         return cell
     }
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        let detailController = self.storyboard!.instantiateViewController(withIdentifier: "VillainDetailViewController") as! VillainDetailViewController
-//        detailController.villain = self.allVillains[(indexPath as NSIndexPath).row]
-//        self.navigationController!.pushViewController(detailController, animated: true)
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailsViewController") as! MemeDetailsViewController
+        detailController.memeDetails = memes[(indexPath as NSIndexPath).row]
+        self.navigationController!.pushViewController(detailController, animated: true)
+    }
 }

@@ -202,7 +202,7 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivn-3J-XtK">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Share" id="xdh-xd-ER1">
+                                    <barButtonItem systemItem="action" id="xdh-xd-ER1">
                                         <connections>
                                             <action selector="shareMeme:" destination="BYZ-38-t0r" id="ypq-8R-Hag"/>
                                         </connections>
@@ -226,7 +226,7 @@
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UME-CL-R4s">
                                 <rect key="frame" x="0.0" y="44" width="414" height="808"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -264,6 +264,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="984" y="-68"/>
+        </scene>
+        <!--Meme Details View Controller-->
+        <scene sceneID="ao9-5y-mhH">
+            <objects>
+                <viewController storyboardIdentifier="MemeDetailsViewController" id="lb4-Xr-frn" customClass="MemeDetailsViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tif-mk-zFq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bIy-SR-7lF">
+                                <rect key="frame" x="87.5" y="246" width="239" height="404"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bIy-SR-7lF" secondAttribute="height" multiplier="16:27" id="X4e-RE-3as"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bIy-SR-7lF" firstAttribute="top" secondItem="DZA-7y-jvZ" secondAttribute="top" constant="202" id="5eg-tz-ujL"/>
+                            <constraint firstItem="bIy-SR-7lF" firstAttribute="centerX" secondItem="tif-mk-zFq" secondAttribute="centerX" id="UtL-aJ-gp2"/>
+                            <constraint firstItem="bIy-SR-7lF" firstAttribute="centerY" secondItem="tif-mk-zFq" secondAttribute="centerY" id="oZH-6s-4pv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DZA-7y-jvZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="memeView" destination="bIy-SR-7lF" id="30s-he-8Q1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SEX-W4-pRy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1740.5797101449277" y="-68.303571428571431"/>
         </scene>
     </scenes>
     <resources>

@@ -7,13 +7,6 @@
 //
 import UIKit
 
-struct Meme {
-    var topText: String
-    var bottomText: String
-    var originalImage: UIImage?
-    var memedImage: UIImage?
-}
-
 class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
@@ -72,16 +65,17 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     }
 
     @IBAction func pickAnImageFromAlbun(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = .photoLibrary
-        present(pickerController, animated: true, completion: nil)
+        self.createPickerImageController(.photoLibrary);
     }
     
     @IBAction func pickImageFromCamara(_ sender: Any) {
+        self.createPickerImageController(.camera);
+    }
+    
+    public func createPickerImageController(_ imageControllerType: UIImagePickerController.SourceType) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        pickerController.sourceType = .camera
+        pickerController.sourceType = imageControllerType
         present(pickerController, animated: true, completion: nil)
     }
     
@@ -112,7 +106,7 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         let controller = UIActivityViewController(activityItems: [meme], applicationActivities: nil)
 
         controller.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            if (completed) {
+            if completed {
                 self.save(meme: meme)
             }
 
