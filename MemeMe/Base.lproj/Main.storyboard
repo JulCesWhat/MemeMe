@@ -274,17 +274,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bIy-SR-7lF">
-                                <rect key="frame" x="87.5" y="246" width="239" height="404"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="bIy-SR-7lF" secondAttribute="height" multiplier="16:27" id="X4e-RE-3as"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bIy-SR-7lF" firstAttribute="top" secondItem="DZA-7y-jvZ" secondAttribute="top" constant="202" id="5eg-tz-ujL"/>
-                            <constraint firstItem="bIy-SR-7lF" firstAttribute="centerX" secondItem="tif-mk-zFq" secondAttribute="centerX" id="UtL-aJ-gp2"/>
-                            <constraint firstItem="bIy-SR-7lF" firstAttribute="centerY" secondItem="tif-mk-zFq" secondAttribute="centerY" id="oZH-6s-4pv"/>
+                            <constraint firstItem="bIy-SR-7lF" firstAttribute="centerX" secondItem="DZA-7y-jvZ" secondAttribute="centerX" id="CxN-6A-45z"/>
+                            <constraint firstItem="bIy-SR-7lF" firstAttribute="bottom" secondItem="DZA-7y-jvZ" secondAttribute="bottom" id="DbK-6a-nlY"/>
+                            <constraint firstItem="bIy-SR-7lF" firstAttribute="leading" secondItem="tif-mk-zFq" secondAttribute="leading" id="MHR-ct-Fra"/>
+                            <constraint firstItem="bIy-SR-7lF" firstAttribute="centerY" secondItem="DZA-7y-jvZ" secondAttribute="centerY" id="ZpV-vk-lMA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DZA-7y-jvZ"/>
                     </view>
